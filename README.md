@@ -52,3 +52,13 @@ Los vídeos de YouTube se cargan de forma diferida al abrir cada sección de ví
 
 - **Libro electrónico:** [Tuning con Ollama — Local AI Engineering](https://buymeacoffee.com/beyonddigiv/e/513275).
 - **Herramienta complementaria con NiceGUI:** [Automated-SLM-Fine-Tuning-Tool · rama `feature/remote-training`](https://github.com/Charran78/Automated-SLM-Fine-Tuning-Tool/tree/feature/remote-training). Es un proyecto aparte del sitio del curso. El uso de Kaggle es opcional y requiere optar por el flujo privado; la gestión y retención de los datasets corresponde al usuario. No se garantiza su eliminación automática, así que revisa y gestiona los datos en el servicio utilizado.
+
+## Licencias y atribución
+
+Los archivos fuente `*.js`, `*.mjs` y `*.css` se ofrecen bajo Apache License 2.0; lo mismo aplica a los archivos `*.py` si se incorporan al proyecto. Consulta el texto completo de la [Apache License 2.0](LICENSE-APACHE-2.0).
+
+La página publicada `index.html` contiene material didáctico y marcado HTML cubiertos por [Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/); cualquier código JavaScript o CSS incluido en ella conserva la licencia Apache indicada arriba. En `js/data.js`, la lógica de la aplicación está bajo Apache 2.0, mientras que el dataset y los textos de sus preguntas se ofrecen bajo CC BY-NC-SA 4.0. La copia de respaldo local `CURSO.html` tiene el mismo alcance de contenido CC si se distribuye; no forma parte de este repositorio. Consulta los [términos y alcance de la licencia de contenido](LICENSE-CONTENT.md).
+
+Atribución: [Fine-Tuning e IA Local con Ollama](https://charran78.github.io/Curso-Fine-Tuning-SLMs-Local-y-Remoto/) © 2026 by [Pedro Mencias Garcia](https://pedromencias.netlify.app/). El libro PDF queda cubierto por CC BY-NC-SA 4.0 solo si se distribuye.
+
+El archivo `assets/FONDO_CERTIFICADO.png` queda expresamente fuera de estas licencias hasta confirmar sus derechos. Las licencias del proyecto tampoco se extienden automáticamente a otros recursos de terceros ni a otros proyectos. Los modelos, marcas y materiales de terceros conservan sus propios términos; su mención no implica afiliación ni concesión de derechos.

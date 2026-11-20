@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: Apache-2.0 */
 :root {
       color-scheme: light;
       --background: #ffffff;
@@ -59,6 +60,8 @@
       --space-xl: 2.5rem;
       --space-2xl: 4rem;
       --space-3xl: 6rem;
+      --license-icon-size: 1.5rem;
+      --license-icon-filter: none;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
       --dur-micro: 120ms;
@@ -95,6 +98,7 @@
       --data-3: #3ddbd9;
       --data-4: #ff7eb6;
       --data-context: #a8a8a8;
+      --license-icon-filter: invert(1);
     }
     *, *::before, *::after { box-sizing: border-box; }
     html, body {
@@ -889,6 +893,24 @@
       margin: 0 auto;
       color: var(--on-surface-variant);
       font-size: 0.88rem;
+    }
+    .course-footer p { margin: var(--space-sm) 0 0; }
+    .course-footer a { color: var(--primary); }
+    .course-license-notice {
+      border-top: var(--rule);
+      padding-top: var(--space-sm);
+    }
+    .license-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-inline-start: var(--space-xs);
+      vertical-align: middle;
+    }
+    .license-icon {
+      width: var(--license-icon-size);
+      height: var(--license-icon-size);
+      filter: var(--license-icon-filter);
     }
     @media (max-width: 900px) {
       .page-grid { grid-template-columns: 1fr; }
