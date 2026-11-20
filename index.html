@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="carbon">
+  <title>Curso Completo de Fine-Tuning e IA Local con Ollama</title>
+  <meta name="description" content="Curso interactivo en español para especializar modelos pequeños con fine-tuning QLoRA, exportarlos a GGUF y ejecutarlos con Ollama.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Curso Completo de Fine-Tuning e IA Local con Ollama">
+  <meta property="og:description" content="Aprende a especializar modelos pequeños con QLoRA, exportarlos a GGUF y servirlos localmente con Ollama.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Curso Completo de Fine-Tuning e IA Local con Ollama">
+  <meta name="twitter:description" content="Aprende a especializar modelos pequeños con QLoRA, exportarlos a GGUF y servirlos localmente con Ollama.">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=IBM+Plex+Mono:ital,wght@0,100..200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <div class="brand-lockup">
+        <span class="mono-label">LOCAL AI ENGINEERING · CURSO INTERACTIVO</span>
+        <span class="brand-title">Fine-Tuning e IA Local con Ollama</span>
+      </div>
+      <nav class="part-jumps" aria-label="Navegación por partes del curso">
+        <a class="part-pill" href="#parte-1">I. Cimientos</a>
+        <a class="part-pill" href="#parte-2">II. Especialización</a>
+        <a class="part-pill" href="#parte-3">III. Producción</a>
+        <a class="part-pill" href="#parte-4">IV. Proyectos</a>
+        <a class="part-pill" href="#parte-5">V. Cierre</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar a tema oscuro" aria-pressed="false">Tema oscuro</button>
+    </div>
+  </header>
+  <a class="progress-bubble" id="progress-bubble" href="#cap-1" aria-label="Progreso del curso: 0 de 13 capítulos completados (0 %). Ir al capítulo 1.">
+    <span id="progress-bubble-percent" aria-hidden="true">0%</span>
+  </a>
+
+  <div class="page-grid">
+    <aside class="course-aside" aria-label="Índice completo de capítulos">
+      <div class="aside-group">
+        <div class="aside-part-title">Parte I · Cimientos</div>
+        <ul class="aside-links">
+          <li><a class="aside-link" href="#cap-1" data-nav="cap-1"><span>1. Ollama y Gemma3:4b</span><span class="aside-check" data-check="cap-1"></span></a></li>
+          <li><a class="aside-link" href="#cap-2" data-nav="cap-2"><span>2. Anatomía de un Modelfile</span><span class="aside-check" data-check="cap-2"></span></a></li>
+          <li><a class="aside-link" href="#cap-3" data-nav="cap-3"><span>3. Primer Modelfile práctico</span><span class="aside-check" data-check="cap-3"></span></a></li>
+        </ul>
+      </div>
+      <div class="aside-group">
+        <div class="aside-part-title">Parte II · Especialización</div>
+        <ul class="aside-links">
+          <li><a class="aside-link" href="#cap-4" data-nav="cap-4"><span>4. Fine-tuning vs. Modelfile</span><span class="aside-check" data-check="cap-4"></span></a></li>
+          <li><a class="aside-link" href="#cap-5" data-nav="cap-5"><span>5. Dataset JSONL (200 QA)</span><span class="aside-check" data-check="cap-5"></span></a></li>
+          <li><a class="aside-link" href="#cap-6" data-nav="cap-6"><span>6. Unsloth + QLoRA 4-bit</span><span class="aside-check" data-check="cap-6"></span></a></li>
+          <li><a class="aside-link" href="#cap-7" data-nav="cap-7"><span>7. Exportación GGUF a Ollama</span><span class="aside-check" data-check="cap-7"></span></a></li>
+        </ul>
+      </div>
+      <div class="aside-group">
+        <div class="aside-part-title">Parte III · Producción</div>
+        <ul class="aside-links">
+          <li><a class="aside-link" href="#cap-8" data-nav="cap-8"><span>8. APIs gratuitas (HF, Public AI)</span><span class="aside-check" data-check="cap-8"></span></a></li>
+          <li><a class="aside-link" href="#cap-9" data-nav="cap-9"><span>9. Modelos ≤4B Tool Calling</span><span class="aside-check" data-check="cap-9"></span></a></li>
+        </ul>
+      </div>
+      <div class="aside-group">
+        <div class="aside-part-title">Parte IV · Proyectos</div>
+        <ul class="aside-links">
+          <li><a class="aside-link" href="#cap-10" data-nav="cap-10"><span>10. P1: Código CodeInsight</span><span class="aside-check" data-check="cap-10"></span></a></li>
+          <li><a class="aside-link" href="#cap-11" data-nav="cap-11"><span>11. P2: Experto técnico Odoo</span><span class="aside-check" data-check="cap-11"></span></a></li>
+          <li><a class="aside-link" href="#cap-12" data-nav="cap-12"><span>12. P3: Agente Qwen3 4B</span><span class="aside-check" data-check="cap-12"></span></a></li>
+        </ul>
+      </div>
+      <div class="aside-group">
+        <div class="aside-part-title">Parte V · Cierre y consulta</div>
+        <ul class="aside-links">
+          <li><a class="aside-link" href="#cap-13" data-nav="cap-13"><span>13. Futuro y Pipeline</span><span class="aside-check" data-check="cap-13"></span></a></li>
+          <li><a class="aside-link reader-nav-link" href="#cap-14" data-nav="cap-14" aria-disabled="true" aria-describedby="quiz-lock-help"><span>14. Test final <span data-quiz-state aria-hidden="true">(bloqueado)</span></span></a></li>
+          <li><a class="aside-link reader-nav-link" href="#cap-15" data-nav="cap-15"><span>15. Apéndice A · Comandos</span></a></li>
+          <li><a class="aside-link reader-nav-link" href="#cap-16" data-nav="cap-16"><span>16. Apéndice B · Glosario</span></a></li>
+        </ul>
+      </div>
+      <div class="layer">
+        <span class="mono-label">Autoevaluación</span>
+        <div class="kpi-value" id="aside-quiz-score">0 / 12</div>
+        <a class="btn btn-secondary reader-nav-link" href="#cap-14" aria-disabled="true" aria-describedby="quiz-lock-help">Ir al punto 14 · Test final</a>
+      </div>
+    </aside>
+
+    <main class="course-main">
+
+      <details class="mobile-toc">
+        <summary>Índice completo del curso (5 partes · 13 capítulos obligatorios · 3 puntos finales)</summary>
+        <ul class="mobile-toc-list">
+          <li><a href="#cap-1">Cap. 1 — ¿Qué es Ollama y por qué Gemma3:4b?</a></li>
+          <li><a href="#cap-2">Cap. 2 — Anatomía de un Modelfile</a></li>
+          <li><a href="#cap-3">Cap. 3 — Nuestro primer Modelfile</a></li>
+          <li><a href="#cap-4">Cap. 4 — Fine-tuning vs. Modelfile</a></li>
+          <li><a href="#cap-5">Cap. 5 — El Dataset JSONL (Visor de 200 pares)</a></li>
+          <li><a href="#cap-6">Cap. 6 — Fine-tuning con Unsloth + QLoRA</a></li>
+          <li><a href="#cap-7">Cap. 7 — Integrando el GGUF en Ollama</a></li>
+          <li><a href="#cap-8">Cap. 8 — Opciones gratuitas de API</a></li>
+          <li><a href="#cap-9">Cap. 9 — Modelos ≤4B para Tool Calling</a></li>
+          <li><a href="#cap-10">Cap. 10 — Proyecto 1: Asistente de código</a></li>
+          <li><a href="#cap-11">Cap. 11 — Proyecto 2: Experto Odoo</a></li>
+          <li><a href="#cap-12">Cap. 12 — Proyecto 3: Agente Qwen3 4B</a></li>
+          <li><a href="#cap-13">Cap. 13 — Futuro y Pipeline Automatizado</a></li>
+          <li><a class="reader-nav-link" href="#cap-14" aria-disabled="true" aria-describedby="quiz-lock-help">Punto 14 — Test final <span data-quiz-state aria-hidden="true">(bloqueado)</span></a></li>
+          <li><a class="reader-nav-link" href="#cap-15">Punto 15 — Apéndice A: comandos</a></li>
+          <li><a class="reader-nav-link" href="#cap-16">Punto 16 — Apéndice B: glosario</a></li>
+        </ul>
+      </details>
+
+      <div class="course-reader" id="course-reader" role="region" aria-label="Capítulo seleccionado del curso" tabindex="0">
+        <section class="hero-block course-cover" id="prologo">
+          <span class="mono-label">PRÓLOGO · DEL MODELO BASE AL ASISTENTE ESPECIALIZADO</span>
+          <h1 class="display-headline">Fine-Tuning e <strong>IA Local con Ollama</strong></h1>
+          <p class="hero-lede">
+            No le pidas peras al olmo: los modelos genéricos en la nube divagan sobre tu código o documentación interna porque nunca fueron entrenados en ello. Este curso recorre las cinco etapas completas para moldear modelos pequeños (≤4B) en tu propio equipo —desde el primer Modelfile hasta el fine-tuning QLoRA con Unsloth, la exportación a GGUF cuantizado y el despliegue gratuito como API.
+          </p>
+          <div class="kpi-grid">
+            <div class="kpi-tile is-primary">
+              <span class="mono-label">Estructura</span>
+              <span class="kpi-value">5 / 13</span>
+              <span class="kpi-desc">Secciones y capítulos progresivos con laboratorios integrados.</span>
+            </div>
+            <div class="kpi-tile">
+              <span class="mono-label">Dataset Curado</span>
+              <span class="kpi-value">200 QA</span>
+              <span class="kpi-desc">100 pares únicos × 2 variantes (original + contextualizada) en formato JSONL listo para inspeccionar y descargar.</span>
+            </div>
+            <div class="kpi-tile">
+              <span class="mono-label">Huella Q4</span>
+              <span class="kpi-value">~2.5 GB</span>
+              <span class="kpi-desc">Gemma3:4b cuantizado corre fluido incluso en hardware modesto.</span>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="#cap-1">Empezar capítulo 1</a>
+        </section>
+      <section class="course-part" id="parte-1">
+        <div class="part-banner">
+          <span class="mono-label">SECCIÓN 01 · CAPÍTULOS 1 A 3</span>
+          <h2 class="part-headline">Parte I: <strong>Los Cimientos</strong></h2>
+          <p class="part-summary">Comprende cómo ejecuta modelos locales Ollama, por qué Gemma3:4b es el punto dulce de entrada y domina las directivas de un Modelfile.</p>
+        </div>
+        <details class="intro-video" data-youtube-id="vJ3M5WKa5Vg" data-video-title="Vídeo introductorio · Parte I: Los Cimientos">
+          <summary>Vídeo introductorio · Parte I: Los Cimientos <span class="video-status" role="status" aria-live="polite">Carga diferida</span></summary>
+          <div class="intro-video-frame" role="region" aria-label="Vídeo introductorio de la Parte I: Los Cimientos">
+            <p class="intro-video-placeholder">Vídeo introductorio pendiente de edición.</p>
+          </div>
+        </details>
+
+        <article class="chapter-section" id="cap-1" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 01</span>
+              <h3 class="chapter-title">¿Qué es Ollama y por qué Gemma3:4b?</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-1"  data-action-click="toggleChapter" data-action-arg="cap-1">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Ollama funciona como el equivalente a Docker para modelos de lenguaje: está escrito en Go, utiliza <code class="inline-code">llama.cpp</code> por debajo y permite descargar, cuantizar, personalizar y servir modelos directamente desde tu ordenador sin depender de servidores externos ni enviar datos privados a la nube.
+          </p>
+          <ul class="prose-list">
+            <li><strong>Descarga directa:</strong> con <code class="inline-code">ollama pull gemma3:4b</code> obtienes el modelo listo para inferencia local.</li>
+            <li><strong>Servidor API REST integrado:</strong> expone el puerto <code class="inline-code">11434</code> en <code class="inline-code">localhost</code> para conectar cualquier script en Python, Java o web.</li>
+            <li><strong>Gemma3:4b como base equilibrada:</strong> con 4 mil millones de parámetros ocupa ~2.5 GB en cuantización Q4, cabe en cualquier equipo con 4 GB de RAM libre, ofrece ventana de 8k tokens y sigue instrucciones de sistema con fiabilidad.</li>
+          </ul>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Modelo (≤4B)</th>
+                  <th>Parámetros</th>
+                  <th class="num">Contexto</th>
+                  <th>Tool Calling Nativo</th>
+                  <th>Licencia</th>
+                  <th>Fortaleza clave</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Gemma3:4b</strong></td>
+                  <td>4B</td>
+                  <td class="num">8K</td>
+                  <td>Limitado</td>
+                  <td>Gemma Terms</td>
+                  <td>Muy equilibrado, gran seguimiento de SYSTEM</td>
+                </tr>
+                <tr>
+                  <td><strong>Qwen3 4B</strong></td>
+                  <td>4B</td>
+                  <td class="num">256K</td>
+                  <td>Sí (nativo)</td>
+                  <td>Apache 2.0</td>
+                  <td>Soporte nativo de herramientas y contexto gigante</td>
+                </tr>
+                <tr>
+                  <td><strong>Ministral 3B</strong></td>
+                  <td>3B</td>
+                  <td class="num">128K</td>
+                  <td>Sí (nativo)</td>
+                  <td>Apache 2.0</td>
+                  <td>Modelo europeo, excelente criterio ante negaciones</td>
+                </tr>
+                <tr>
+                  <td><strong>Phi-3.5-mini</strong></td>
+                  <td>3.8B</td>
+                  <td class="num">128K</td>
+                  <td>Limitado</td>
+                  <td>MIT</td>
+                  <td>Razonamiento sólido con tamaño compacto</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="chapter-section" id="cap-2" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 02</span>
+              <h3 class="chapter-title">Anatomía de un Modelfile — El plano de tu modelo</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-2"  data-action-click="toggleChapter" data-action-arg="cap-2">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Un <code class="inline-code">Modelfile</code> es el equivalente al <code class="inline-code">Dockerfile</code>: un archivo de texto plano que describe la imagen base, los parámetros de inferencia y la identidad permanente del asistente. Al ejecutar <code class="inline-code">ollama create</code>, Ollama empaqueta esa configuración en un modelo reutilizable.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Directiva / Parámetro</th>
+                  <th>Rango típico</th>
+                  <th>Función y efecto práctico</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="inline-code">FROM &lt;modelo&gt;</code></td>
+                  <td>Obligatorio</td>
+                  <td>Define el modelo base del registro (ej. <code class="inline-code">gemma3:4b</code>) o una ruta a un archivo <code class="inline-code">.gguf</code> local.</td>
+                </tr>
+                <tr>
+                  <td><code class="inline-code">PARAMETER temperature</code></td>
+                  <td class="num">0.0 – 2.0</td>
+                  <td>Controla la aleatoriedad: <code class="inline-code">0.2–0.3</code> para respuestas factuales/código; <code class="inline-code">0.8</code> para creatividad.</td>
+                </tr>
+                <tr>
+                  <td><code class="inline-code">PARAMETER top_p</code></td>
+                  <td class="num">0.0 – 1.0</td>
+                  <td>Nucleus sampling: restringe el muestreo al conjunto mínimo de tokens cuya probabilidad acumula <code class="inline-code">top_p</code> (<code class="inline-code">0.9</code>).</td>
+                </tr>
+                <tr>
+                  <td><code class="inline-code">PARAMETER num_ctx</code></td>
+                  <td class="num">2048 – 32K</td>
+                  <td>Ventana de contexto en tokens; aumentarla permite documentos largos pero exige más RAM/VRAM.</td>
+                </tr>
+                <tr>
+                  <td><code class="inline-code">PARAMETER repeat_penalty</code></td>
+                  <td class="num">1.0 – 1.5</td>
+                  <td>Penaliza bucles y repeticiones de tokens (<code class="inline-code">1.1</code> es un valor seguro).</td>
+                </tr>
+                <tr>
+                  <td><code class="inline-code">SYSTEM """..."""</code></td>
+                  <td>Persistente</td>
+                  <td>Inyecta rol, idioma, tono y restricciones al principio de toda conversación.</td>
+                </tr>
+                <tr>
+                  <td><code class="inline-code">MESSAGE &lt;rol&gt; "..."</code></td>
+                  <td>2–3 pares</td>
+                  <td>Ejemplos <em>few-shot</em> (<code class="inline-code">user</code> / <code class="inline-code">assistant</code>) para fijar formato sin entrenar pesos.</td>
+                </tr>
+                <tr>
+                  <td><code class="inline-code">TEMPLATE """..."""</code></td>
+                  <td>Avanzado</td>
+                  <td>Define tokens de chat nativos (como <code class="inline-code">&lt;start_of_turn&gt;</code> en Gemma3 o <code class="inline-code">&lt;|im_start|&gt;</code> en Qwen).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="chapter-section" id="cap-3" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 03</span>
+              <h3 class="chapter-title">Nuestro primer Modelfile — Gemma3 con personalidad</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-3"  data-action-click="toggleChapter" data-action-arg="cap-3">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Para pasar de la teoría a la práctica, creamos un asesor fiscal especializado en autónomos en España en seis pasos: verificar instalación, descargar <code class="inline-code">gemma3:4b</code>, redactar <code class="inline-code">asesor-financiero.modelfile</code>, compilarlo con <code class="inline-code">ollama create</code>, probarlo con <code class="inline-code">ollama run</code> e iterar ajustando el <code class="inline-code">SYSTEM</code> prompt y la temperatura.
+          </p>
+
+          <div class="layer" id="lab-ollama">
+            <div>
+              <span class="mono-label">LABORATORIO INTERACTIVO 01 · MODELFILE + SIMULADOR CLI DE OLLAMA</span>
+              <p class="prose">Configura tu Modelfile, cópialo y prueba los comandos clave de Ollama en la terminal simulada.</p>
+            </div>
+
+            <div class="split-grid">
+              <div class="layer">
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="mf-name">Nombre del modelo en Ollama</label>
+                    <input type="text" id="mf-name" value="asesor-financiero"  data-action-input="updateModelfilePreview">
+                  </div>
+                  <div class="field">
+                    <label for="mf-base">Modelo base (FROM)</label>
+                    <select id="mf-base"  data-action-change="updateModelfilePreview">
+                      <option value="gemma3:4b">gemma3:4b</option>
+                      <option value="qwen3:4b-instruct-2507">qwen3:4b-instruct-2507</option>
+                      <option value="ministral:3b">ministral:3b</option>
+                      <option value="./gemma3-4b-fiscal-q4_k_m.gguf">./gemma3-4b-fiscal-q4_k_m.gguf (GGUF local)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="mf-temp">Temperature (<span id="mf-temp-val">0.3</span>)</label>
+                    <input type="range" id="mf-temp" min="0" max="1.5" step="0.1" value="0.3"  data-action-input="syncMfTemp" data-action-source="value">
+                  </div>
+                  <div class="field">
+                    <label for="mf-ctx">Contexto num_ctx</label>
+                    <select id="mf-ctx"  data-action-change="updateModelfilePreview">
+                      <option value="2048">2048 tokens</option>
+                      <option value="4096" selected>4096 tokens</option>
+                      <option value="8192">8192 tokens</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="mf-preset">Plantilla de rol (SYSTEM)</label>
+                  <select id="mf-preset"  data-action-change="applyModelfilePreset" data-action-source="value">
+                    <option value="fiscal">Asesor fiscal para autónomos (España)</option>
+                    <option value="codigo">Arquitecto Python & Backend</option>
+                    <option value="odoo">Consultor experto en Odoo ERP</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="mf-system">Instrucción SYSTEM personalizada</label>
+                  <textarea id="mf-system"  data-action-input="updateModelfilePreview">Eres un asesor fiscal especializado en autónomos y pequeños negocios en España. Conoces el régimen de estimación directa, las deducciones de IVA, el IRPF y los modelos 130, 303 y 390. Respondes en español con tono profesional y cercano; si algo requiere un gestor, lo adviertes.</textarea>
+                </div>
+
+                <div class="action-row">
+                  <button type="button" class="btn btn-primary"  data-action-click="simulateCreateFromBuilder">Simular ollama create</button>
+                  <button type="button" class="btn btn-secondary"  data-action-click="simulateRunFromBuilder">Simular ollama run</button>
+                </div>
+              </div>
+
+              <div class="code-panel">
+                <div class="code-header">
+                  <span class="code-title" id="mf-filename-label">asesor-financiero.modelfile</span>
+                  <div class="code-actions">
+                    <button type="button" class="code-btn"  data-action-click="copyElementText" data-action-arg="mf-preview-code" data-action-source="element">Copiar Modelfile</button>
+                  </div>
+                </div>
+                <pre class="code-body" id="mf-preview-code"></pre>
+              </div>
+            </div>
+
+            <div class="code-panel">
+              <div class="code-header">
+                <span class="code-title">Terminal Interactiva · Simulador de Ollama CLI</span>
+                <div class="code-actions">
+                  <button type="button" class="code-btn"  data-action-click="copyLastTerminalCmd" data-action-source="element">Copiar último comando</button>
+                  <button type="button" class="code-btn"  data-action-click="clearTerminal">Limpiar consola</button>
+                </div>
+              </div>
+              <div class="terminal-output" id="terminal-output" aria-live="polite"></div>
+              <div class="terminal-input-row">
+                <span class="terminal-prompt-char">$</span>
+                <input type="text" id="terminal-input" class="terminal-input" aria-label="Escribe un comando de Ollama" placeholder="Escribe un comando (ej: ollama list, ollama pull gemma3:4b, help)"  data-action-keydown="handleTerminalKey" data-action-source="event">
+                <button type="button" class="code-btn"  data-action-click="executeTerminalInput">Ejecutar</button>
+              </div>
+            </div>
+
+            <div>
+              <span class="mono-label">Comandos clave para probar o copiar al instante:</span>
+              <div class="cmd-chip-row spaced-xs">
+                <button type="button" class="cmd-chip" title="Muestra la versión de Ollama instalada."  data-action-click="runPresetCmd" data-action-arg="ollama --version">ollama --version</button>
+                <button type="button" class="cmd-chip" title="Descarga Gemma 3 de 4B desde el registro de Ollama."  data-action-click="runPresetCmd" data-action-arg="ollama pull gemma3:4b">ollama pull gemma3:4b</button>
+                <button type="button" class="cmd-chip" title="Lista los modelos disponibles localmente."  data-action-click="runPresetCmd" data-action-arg="ollama list">ollama list</button>
+                <button type="button" class="cmd-chip" title="Crea asesor-financiero usando el Modelfile indicado."  data-action-click="runPresetCmd" data-action-arg="ollama create asesor-financiero -f asesor-financiero.modelfile">ollama create asesor-financiero</button>
+                <button type="button" class="cmd-chip" title="Inicia una conversación con asesor-financiero."  data-action-click="runPresetCmd" data-action-arg="ollama run asesor-financiero">ollama run asesor-financiero</button>
+                <button type="button" class="cmd-chip" title="En este simulador muestra el Modelfile del constructor actual; el comando real muestra el Modelfile del modelo consultado."  data-action-click="runPresetCmd" data-action-arg="ollama show gemma3:4b --modelfile">ollama show --modelfile</button>
+                <button type="button" class="cmd-chip" title="Muestra los modelos cargados actualmente en memoria."  data-action-click="runPresetCmd" data-action-arg="ollama ps">ollama ps</button>
+                <button type="button" class="cmd-chip" title="Elimina asesor-financiero del almacenamiento local."  data-action-click="runPresetCmd" data-action-arg="ollama rm asesor-financiero">ollama rm</button>
+              </div>
+              <p class="chart-note">Nota: en este simulador, <code class="inline-code">ollama show gemma3:4b --modelfile</code> muestra el Modelfile del constructor actual aunque el comando nombre otro modelo. En Ollama real, muestra el Modelfile del modelo consultado por consola; no lo guarda en un archivo.</p>
+            </div>
+          </div>
+
+          <div class="code-panel">
+            <div class="code-header">
+              <span class="code-title">Python · Consumo vía API REST local de Ollama (puerto 11434)</span>
+              <div class="code-actions">
+                <button type="button" class="code-btn"  data-action-click="copyElementText" data-action-arg="code-cap3-api" data-action-source="element">Copiar código</button>
+              </div>
+            </div>
+            <pre class="code-body" id="code-cap3-api">import requests
+
+# Ollama expone su API REST en localhost puerto 11434
+endpoint = "http://" + "localhost:11434/api/generate"
+response = requests.post(
+    endpoint,
+    json={
+        "model": "asesor-financiero",
+        "prompt": "¿Qué es el modelo 390?",
+        "stream": False
+    }
+)
+print(response.json()["response"])</pre>
+          </div>
+        </article>
+      </section>
+
+      <section class="course-part" id="parte-2">
+        <div class="part-banner">
+          <span class="mono-label">SECCIÓN 02 · CAPÍTULOS 4 A 7</span>
+          <h2 class="part-headline">Parte II: <strong>El Arte de la Especialización</strong></h2>
+          <p class="part-summary">Aprende cuándo dar el salto del Modelfile al ajuste de pesos, prepara un dataset JSONL curado de 200 entradas, entrena con Unsloth + QLoRA y exporta a GGUF.</p>
+        </div>
+        <details class="intro-video" data-youtube-id="7x79kQO7exk" data-video-title="Vídeo introductorio · Parte II: El Arte de la Especialización">
+          <summary>Vídeo introductorio · Parte II: El Arte de la Especialización <span class="video-status" role="status" aria-live="polite">Carga diferida</span></summary>
+          <div class="intro-video-frame" role="region" aria-label="Vídeo introductorio de la Parte II: El Arte de la Especialización">
+            <p class="intro-video-placeholder">Vídeo introductorio pendiente de edición.</p>
+          </div>
+        </details>
+
+        <article class="chapter-section" id="cap-4" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 04</span>
+              <h3 class="chapter-title">Más allá del prompt — Fine-tuning vs. Modelfile</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-4"  data-action-click="toggleChapter" data-action-arg="cap-4">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            El Modelfile equivale a entregar un manual de estilo a un becario: cambia su tono y añade unos pocos ejemplos <code class="inline-code">MESSAGE</code>, pero no altera su conocimiento factual ni evita que alucine cuando desconoce un dominio. El fine-tuning, en cambio, envía al becario a un máster intensivo actualizando sus pesos mediante adaptadores LoRA/QLoRA.
+          </p>
+
+          <div class="layer">
+            <span class="mono-label">SELECTOR DE ESTRATEGIA · ¿MODELFILE O FINE-TUNING?</span>
+            <div class="field">
+              <label for="strategy-select">Selecciona tu caso de uso</label>
+              <select id="strategy-select"  data-action-change="updateStrategyAdvice" data-action-source="value">
+                <option value="tone">Cambiar el tono, idioma o rol del asistente sin datos nuevos</option>
+                <option value="docs">Responder sobre documentación interna o software reciente no visto por el modelo</option>
+                <option value="json">Generar salidas JSON complejas y consistentes con múltiples campos</option>
+                <option value="fewshot">Imitar un formato breve a partir de 2 o 3 ejemplos de diálogo</option>
+                <option value="nogpu">Prototipar hoy mismo sin GPU y sin costes en la nube</option>
+              </select>
+            </div>
+            <div class="callout" id="strategy-result">
+              <div class="callout-title" id="strategy-title">Recomendación: Modelfile (SYSTEM prompt)</div>
+              <p id="strategy-desc">Si el modelo ya conoce el tema general y solo necesitas fijar tono, idioma o reglas de respuesta, un buen SYSTEM prompt más temperature 0.2–0.4 es instantáneo y no requiere entrenamiento.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="chapter-section" id="cap-5" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 05</span>
+              <h3 class="chapter-title">El alma del fine-tuning — El Dataset JSONL</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-5"  data-action-click="toggleChapter" data-action-arg="cap-5">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            En aprendizaje automático rige una regla implacable: basura entra, basura sale. Para modelos de chat como Gemma3 o Qwen2.5/Qwen3 el estándar universal es el archivo <code class="inline-code">.jsonl</code> (una conversación por línea) con la clave <code class="inline-code">messages</code> y roles <code class="inline-code">user</code> y <code class="inline-code">assistant</code>. El script de entrenamiento se encarga después de traducirlo a los tokens nativos (<code class="inline-code">&lt;start_of_turn&gt;</code> en Gemma3).
+          </p>
+          <p class="prose">
+            Regla práctica del pipeline <code class="inline-code">slm_automator.py</code>: se requieren al menos <strong>10 ejemplos</strong> para activar la división automática 90% entrenamiento / 10% evaluación, aunque <strong>500 ejemplos limpios</strong> rinden mejor que 5.000 ruidosos.
+          </p>
+
+          <div class="layer" id="lab-dataset">
+            <div class="action-row--between">
+              <div>
+                <span class="mono-label">LABORATORIO INTERACTIVO 02 · VISOR DEL DATASET JSONL (200 ENTRADAS QA)</span>
+                <p class="prose">Explora, filtra y valida las 200 entradas (100 pares únicos × 2 variantes: original y contextualizada) en los cuatro dominios del curso: Fiscal, Odoo, Python y Ollama/FT.</p>
+              </div>
+              <button type="button" class="btn btn-primary"  data-action-click="downloadDatasetJsonl">Descargar dataset_200_qa.jsonl</button>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="ds-search">Buscar en preguntas y respuestas</label>
+                <input type="text" id="ds-search" placeholder="Ej: modelo 303, QWeb, pandas, QLoRA..."  data-action-input="filterDataset">
+              </div>
+              <div class="field">
+                <label for="ds-domain">Filtrar por dominio</label>
+                <select id="ds-domain"  data-action-change="filterDataset">
+                  <option value="all">Todos los dominios (200 entradas)</option>
+                  <option value="fiscal">Fiscal y Autónomos España (50)</option>
+                  <option value="odoo">Odoo ERP Documentación (50)</option>
+                  <option value="python">Python &amp; CodeInsight (50)</option>
+                  <option value="ollama">IA Local, Ollama &amp; Fine-Tuning (50)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="ds-view-mode">Formato de inspección</label>
+                <select id="ds-view-mode"  data-action-change="renderDatasetPage">
+                  <option value="chat">Conversación legible</option>
+                  <option value="jsonl">Línea JSONL cruda (SFTTrainer)</option>
+                  <option value="gemma">Plantilla nativa Gemma3 (&lt;start_of_turn&gt;)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-tile is-primary">
+                <span class="mono-label">Coincidencias</span>
+                <span class="kpi-value" id="ds-count-total">200</span>
+                <span class="kpi-desc">Entradas filtradas activas</span>
+              </div>
+              <div class="kpi-tile">
+                <span class="mono-label">Split 90% Train</span>
+                <span class="kpi-value" id="ds-count-train">180</span>
+                <span class="kpi-desc">Ejemplos de entrenamiento</span>
+              </div>
+              <div class="kpi-tile">
+                <span class="mono-label">Split 10% Eval</span>
+                <span class="kpi-value" id="ds-count-eval">20</span>
+                <span class="kpi-desc">Ejemplos para eval_loss</span>
+              </div>
+            </div>
+
+            <div id="ds-list" class="qa-list"></div>
+
+            <div class="pagination-row">
+              <span class="mono-label" id="ds-page-info">Página 1 de 20 · Mostrando 1–10 de 200</span>
+              <div class="action-row--gap">
+                <button type="button" class="btn btn-ghost" id="ds-prev-btn"  data-action-click="changeDatasetPage" data-action-arg="-1">Anterior</button>
+                <button type="button" class="btn btn-ghost" id="ds-next-btn"  data-action-click="changeDatasetPage" data-action-arg="1">Siguiente</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="chapter-section" id="cap-6" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 06</span>
+              <h3 class="chapter-title">Fine-tuning con recursos de hormiga (Unsloth + QLoRA)</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-6"  data-action-click="toggleChapter" data-action-arg="cap-6">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Gracias a <strong>QLoRA</strong> (cuantización 4-bit NF4 + doble cuantización) y <strong>Unsloth</strong>, puedes adaptar modelos de 4B en una GPU doméstica con 6 GB de VRAM o en la GPU T4 gratuita (16 GB) de Google Colab. Solo se entrenan pequeñas matrices LoRA (<code class="inline-code">q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj</code>) manteniendo congelado el modelo base en 4 bits.
+          </p>
+
+          <div class="layer" id="lab-unsloth">
+            <span class="mono-label">LABORATORIO INTERACTIVO 03 · SNIPPETS UNSLOTH / QLORA Y CALCULADORA DE RECURSOS</span>
+
+            <div class="lab-tabs" role="tablist" aria-label="Etapas de código Unsloth y QLoRA">
+              <button type="button" class="lab-tab is-active" data-snippet="load"  data-action-click="selectSnippet" data-action-arg="load" data-action-source="element">1. Carga 4-bit</button>
+              <button type="button" class="lab-tab" data-snippet="lora"  data-action-click="selectSnippet" data-action-arg="lora" data-action-source="element">2. Adaptador LoRA</button>
+              <button type="button" class="lab-tab" data-snippet="data"  data-action-click="selectSnippet" data-action-arg="data" data-action-source="element">3. Formato Gemma3</button>
+              <button type="button" class="lab-tab" data-snippet="train"  data-action-click="selectSnippet" data-action-arg="train" data-action-source="element">4. SFTTrainer</button>
+              <button type="button" class="lab-tab" data-snippet="save"  data-action-click="selectSnippet" data-action-arg="save" data-action-source="element">5. Fusión 16-bit</button>
+            </div>
+
+            <div class="code-panel">
+              <div class="code-header">
+                <span class="code-title" id="snippet-title">Paso 1 · Carga cuantizada en 4 bits con FastLanguageModel</span>
+                <div class="code-actions">
+                  <button type="button" class="code-btn"  data-action-click="copyElementText" data-action-arg="snippet-code" data-action-source="element">Copiar snippet</button>
+                </div>
+              </div>
+              <pre class="code-body" id="snippet-code"></pre>
+            </div>
+
+            <div class="layer">
+              <span class="mono-label">Simulador de Hiperparámetros y Huella de Hardware (Modelo ~4B)</span>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="hp-rank">Rango LoRA (r)</label>
+                  <select id="hp-rank"  data-action-change="updateHardwareCalc">
+                    <option value="8">r = 8 (mínima memoria)</option>
+                    <option value="16" selected>r = 16 (recomendado)</option>
+                    <option value="32">r = 32 (mayor capacidad)</option>
+                    <option value="64">r = 64 (dominios amplios)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="hp-seq">Longitud máxima (max_seq_length)</label>
+                  <select id="hp-seq"  data-action-change="updateHardwareCalc">
+                    <option value="1024">1024 tokens</option>
+                    <option value="2048">2048 tokens</option>
+                    <option value="4096" selected>4096 tokens</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="hp-batch">Batch por dispositivo</label>
+                  <select id="hp-batch"  data-action-change="updateHardwareCalc">
+                    <option value="1">1 (GPUs de 6 GB)</option>
+                    <option value="2" selected>2 (Colab T4 / RTX 8GB)</option>
+                    <option value="4">4 (RTX 12+ GB)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="hp-epochs">Épocas (epochs)</label>
+                  <select id="hp-epochs"  data-action-change="updateHardwareCalc">
+                    <option value="1">1 época</option>
+                    <option value="3" selected>3 épocas (estándar)</option>
+                    <option value="5">5 épocas</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="kpi-grid">
+                <div class="kpi-tile is-primary">
+                  <span class="mono-label">VRAM estimada (Unsloth)</span>
+                  <span class="kpi-value" id="calc-vram">5.8 GB</span>
+                  <span class="kpi-desc" id="calc-gpu-note">Apto para RTX 3060/4060 (6–8 GB) y Colab T4</span>
+                </div>
+                <div class="kpi-tile">
+                  <span class="mono-label">Batch efectivo (grad_acc=4)</span>
+                  <span class="kpi-value" id="calc-batch-eff">8</span>
+                  <span class="kpi-desc">Ejemplos por actualización de pesos</span>
+                </div>
+                <div class="kpi-tile">
+                  <span class="mono-label">Tiempo (500 ejemplos)</span>
+                  <span class="kpi-value" id="calc-time-gpu">~7 min</span>
+                  <span class="kpi-desc" id="calc-time-cpu">Ruta fallback CPU: ~2.0 horas (FP32)</span>
+                </div>
+              </div>
+            </div>
+            <aside class="callout is-success" aria-labelledby="kaggle-route-title">
+              <div class="callout-title" id="kaggle-route-title">Vía B · Entrenamiento remoto con Kaggle (sin GPU local)</div>
+              <p>El módulo experimental <code class="inline-code">kaggle_runner.py</code>, integrado con el pipeline de <code class="inline-code">slm_automator.py</code>, puede enviar un dataset JSONL a <a href="https://www.kaggle.com/code" target="_blank" rel="noopener noreferrer">Kaggle Notebooks</a> y ejecutar el entrenamiento en una GPU disponible para tu cuenta. La ejecución puede generar <code class="inline-code">model_artifact.zip</code> con el adaptador LoRA y un manifiesto de reproducibilidad. La disponibilidad de GPU T4 y los límites de sesión dependen de Kaggle; compruébalos antes de iniciar.</p>
+              <ul class="prose-list">
+                <li><strong>Ventaja:</strong> Descarga el adaptador y realiza la inspección, fusión y conversión GGUF en tu equipo, sin depender del tiempo restante del notebook para completar la exportación.</li>
+                <li><strong>Privacidad:</strong> La herramienta exige consentimiento explícito y crea el dataset remoto como privado. Comprueba y administra su retención desde Kaggle; no se afirma que se elimine automáticamente tras descargar los artefactos.</li>
+                <li><strong>Reproducibilidad:</strong> El manifiesto registra hashes SHA-256 del dataset y la revisión resuelta del modelo base, además de parámetros y métricas del entrenamiento.</li>
+              </ul>
+              <p class="prose">Flujo desde <code class="inline-code">app_ui3.py</code>:</p>
+              <div class="code-panel">
+                <div class="code-header">
+                  <span class="code-title">Kaggle → local · SLM Fine-Tuning Tool</span>
+                </div>
+                <pre class="code-body"># 1. Abre la pestaña "Kaggle (opcional)", selecciona el JSONL y el modelo base.
+# 2. Confirma el consentimiento para subir el dataset privado y envía el trabajo.
+# 3. Cuando termine, descarga model_artifact.zip en ~/kaggle_output/.
+# 4. En "Exportación", inspecciona el ZIP y convierte el adaptador a GGUF en local.</pre>
+              </div>
+              <p class="prose">Herramienta: <a href="https://github.com/Charran78/Automated-SLM-Fine-Tuning-Tool/tree/feature/remote-training" target="_blank" rel="noopener noreferrer">Automated-SLM-Fine-Tuning-Tool · rama remote-training</a>. Requiere configurar Kaggle CLI y sus credenciales siguiendo la documentación del proyecto.</p>
+            </aside>
+          </div>
+        </article>
+
+        <article class="chapter-section" id="cap-7" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 07</span>
+              <h3 class="chapter-title">Integrando el modelo fine-tuneado en Ollama</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-7"  data-action-click="toggleChapter" data-action-arg="cap-7">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Ollama no carga adaptadores LoRA sueltos: exige el modelo completo fusionado en formato <strong>GGUF</strong> (cuantizado normalmente en <code class="inline-code">q4_k_m</code> para equilibrar tamaño y calidad). Puedes exportar directamente con Unsloth o compilar <code class="inline-code">llama.cpp</code> y usar <code class="inline-code">convert.py</code>.
+          </p>
+
+          <div class="callout is-warn">
+            <div class="callout-title">Parche crítico contra el bug #2604 de Unsloth</div>
+            <p>En versiones afectadas de Unsloth, el <code class="inline-code">Modelfile</code> autogenerado tras exportar a GGUF puede apuntar en la línea <code class="inline-code">FROM</code> al archivo pesado en F16 en lugar del cuantizado <code class="inline-code">q4_k_m</code>. El pipeline <code class="inline-code">slm_automator.py</code> reescribe automáticamente la directiva <code class="inline-code">FROM</code> hacia el <code class="inline-code">.gguf</code> cuantizado antes de lanzar <code class="inline-code">ollama create</code>.</p>
+          </div>
+
+          <div class="code-panel">
+            <div class="code-header">
+              <span class="code-title">Exportación a GGUF y registro en Ollama</span>
+              <div class="code-actions">
+                <button type="button" class="code-btn"  data-action-click="copyElementText" data-action-arg="code-cap7-gguf" data-action-source="element">Copiar comandos</button>
+              </div>
+            </div>
+            <pre class="code-body" id="code-cap7-gguf"># 1. Exportar directamente a GGUF cuantizado (q4_k_m) desde Python/Unsloth
+model.save_pretrained_gguf("gemma3-4b-fiscal-gguf", tokenizer, quantization_method="q4_k_m")
+
+# Alternativa manual con llama.cpp:
+# python convert.py ../gemma3-4b-fiscal-merged/ --outfile ../gemma3-4b-fiscal-q4_k_m.gguf --outtype q4_k_m
+
+# 2. Registrar en Ollama con tu Modelfile que apunta al GGUF
+ollama create asesor-fiscal-ft -f fiscal.modelfile
+ollama run asesor-fiscal-ft</pre>
+          </div>
+        </article>
+      </section>
+
+      <section class="course-part" id="parte-3">
+        <div class="part-banner">
+          <span class="mono-label">SECCIÓN 03 · CAPÍTULOS 8 A 9</span>
+          <h2 class="part-headline">Parte III: <strong>Llevándolo a Producción (sin gastar un euro)</strong></h2>
+          <p class="part-summary">Publica tu modelo fine-tuneado como API gratuita y elige el modelo ≤4B adecuado si tu aplicación requiere llamar herramientas externas.</p>
+        </div>
+        <details class="intro-video" data-youtube-id="b31pT6-B79c" data-video-title="Vídeo introductorio · Parte III: Llevándolo a Producción">
+          <summary>Vídeo introductorio · Parte III: Llevándolo a Producción <span class="video-status" role="status" aria-live="polite">Carga diferida</span></summary>
+          <div class="intro-video-frame" role="region" aria-label="Vídeo introductorio de la Parte III: Llevándolo a Producción">
+            <p class="intro-video-placeholder">Vídeo introductorio pendiente de edición.</p>
+          </div>
+        </details>
+
+        <article class="chapter-section" id="cap-8" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 08</span>
+              <h3 class="chapter-title">Opciones gratuitas para desplegar tu modelo como API</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-8"  data-action-click="toggleChapter" data-action-arg="cap-8">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Cuando subes tu modelo fusionado a Hugging Face Hub, dispones de tres vías sin coste para exponerlo como API HTTP sin mantener servidores 24/7. Para modelos propios fine-tuneados, <strong>Public AI</strong> destaca por ofrecer GPUs donadas con vLLM hasta 20 peticiones por minuto.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Plataforma</th>
+                  <th>Hardware</th>
+                  <th>¿Modelo propio?</th>
+                  <th>Límites gratuitos</th>
+                  <th>Caso ideal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Hugging Face Inference API</strong></td>
+                  <td>Solo CPU</td>
+                  <td>Sí (público)</td>
+                  <td>0,10 $/mes créditos (2 $ PRO)</td>
+                  <td>Prototipos rápidos y demos de bajo tráfico</td>
+                </tr>
+                <tr>
+                  <td><strong>Public AI + Hugging Face</strong></td>
+                  <td>GPU (vLLM)</td>
+                  <td>Sí (compatible Hub)</td>
+                  <td>20 req/min (clave directa)</td>
+                  <td>Aplicaciones reales con tu fine-tune y baja latencia</td>
+                </tr>
+                <tr>
+                  <td><strong>GitHub Models</strong></td>
+                  <td>Cloud gestionado</td>
+                  <td>No (catálogo propio)</td>
+                  <td>150 req/día, 15 req/min</td>
+                  <td>Probar modelos grandes (GPT-4.1, Llama, Phi-4) vía SDK OpenAI</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="code-panel">
+            <div class="code-header">
+              <span class="code-title">Python · Inferencia gratuita en GPU con Public AI vía Hugging Face</span>
+              <div class="code-actions">
+                <button type="button" class="code-btn"  data-action-click="copyElementText" data-action-arg="code-cap8-publicai" data-action-source="element">Copiar snippet</button>
+              </div>
+            </div>
+            <pre class="code-body" id="code-cap8-publicai">import os
+from huggingface_hub import InferenceClient
+
+client = InferenceClient(
+    provider="publicai",
+    api_key=os.environ["HF_TOKEN"]
+)
+
+completion = client.chat.completions.create(
+    model="tu-usuario/gemma3-4b-fiscal-merged",
+    messages=[{"role": "user", "content": "¿Cómo se calcula la cuota de autónomos?"}]
+)
+print(completion.choices[0].message.content)</pre>
+          </div>
+        </article>
+
+        <article class="chapter-section" id="cap-9" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 09</span>
+              <h3 class="chapter-title">¿Y si necesito tool calling? Los mejores modelos ≤4B</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-9"  data-action-click="toggleChapter" data-action-arg="cap-9">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Gemma3:4b es sólido para instrucción general, pero si tu agente debe invocar APIs o funciones externas con criterio —sabiendo incluso <strong>cuándo abstenerse</strong> ante negaciones o incertidumbre—, conviene elegir modelos pequeños entrenados específicamente para <em>function calling</em>: <strong>Qwen3 4B Instruct</strong> (256K tokens, Apache 2.0), <strong>Ministral 3B</strong> (128K tokens, alternativa europea con gran juicio) y <strong>Nemotron-Mini 4B</strong> (4K tokens, destilado por NVIDIA, 2.6 GB en Q4_0).
+          </p>
+
+          <div class="chart-box">
+            <div class="action-row--baseline">
+              <div>
+                <h4 class="section-heading">Ventana de contexto nativa en modelos ≤4B</h4>
+                <span class="mono-label">UNIDADES: MILES DE TOKENS (K) · MAYOR CONTEXTO PERMITE MÁS DEFINICIONES DE HERRAMIENTAS</span>
+              </div>
+            </div>
+            <div class="chart-canvas-wrap">
+              <canvas id="models-context-chart" role="img" aria-label="Gráfico comparativo de ventana de contexto de modelos pequeños"></canvas>
+            </div>
+          </div>
+          <div class="chart-box spaced-lg">
+            <h4 class="section-heading">Comparativa orientativa: Gemma 3, Qwen 3 y Ministral</h4>
+            <p class="chart-note">Rúbrica didáctica normalizada de 0 (menos favorable) a 5 (más favorable). En VRAM, una puntuación alta significa menor exigencia relativa; en licencia, mayor facilidad/permisividad de uso. Son valoraciones cualitativas para orientar una primera elección, no benchmarks ni propiedades absolutas: dependen de la versión, cuantización, configuración y términos exactos de cada modelo. Comprueba siempre su model card y licencia.</p>
+            <div class="chart-canvas-wrap">
+              <canvas id="models-radar-chart" role="img" aria-label="Radar orientativo con puntuaciones de contexto, tool calling, licencia, eficiencia de VRAM y calidad en español para Gemma 3, Qwen 3 y Ministral"></canvas>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="course-part" id="parte-4">
+        <div class="part-banner">
+          <span class="mono-label">SECCIÓN 04 · CAPÍTULOS 10 A 12</span>
+          <h2 class="part-headline">Parte IV: <strong>Manos a la Obra (Proyectos Reales)</strong></h2>
+          <p class="part-summary">Tres implementaciones completas de extremo a extremo: código Python con tests unitarios, experto en Odoo ERP y agente con tool calling en Qwen3.</p>
+        </div>
+        <details class="intro-video" data-youtube-id="vPgPh2bZco0" data-video-title="Vídeo introductorio · Parte IV: Manos a la Obra">
+          <summary>Vídeo introductorio · Parte IV: Manos a la Obra <span class="video-status" role="status" aria-live="polite">Carga diferida</span></summary>
+          <div class="intro-video-frame" role="region" aria-label="Vídeo introductorio de la Parte IV: Manos a la Obra">
+            <p class="intro-video-placeholder">Vídeo introductorio pendiente de edición.</p>
+          </div>
+        </details>
+
+        <article class="chapter-section" id="cap-10" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 10</span>
+              <h3 class="chapter-title">Proyecto 1 — Asistente de código Python con CodeInsight</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-10"  data-action-click="toggleChapter" data-action-arg="cap-10">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Partimos del dataset curado <strong>CodeInsight</strong> (3.409 ejemplos de Stack Overflow en Python con intención aclarada, solución y una media de 3 tests unitarios sobre Pandas, NumPy, Regex y más de 70 librerías estándar). Transformamos cada entrada al formato JSONL (<code class="inline-code">intent</code> como <code class="inline-code">user</code> y código + tests como <code class="inline-code">assistant</code>), entrenamos Gemma3:4b con planificador de tasa de aprendizaje <code class="inline-code">lr_scheduler_type="cosine"</code> durante 3 épocas y desplegamos en Ollama con <code class="inline-code">temperature 0.3</code>.
+          </p>
+
+          <div class="code-panel">
+            <div class="code-header">
+              <span class="code-title">Modelfile · code-assistant.modelfile</span>
+              <div class="code-actions">
+                <button type="button" class="code-btn"  data-action-click="copyElementText" data-action-arg="code-cap10-mf" data-action-source="element">Copiar Modelfile</button>
+              </div>
+            </div>
+            <pre class="code-body" id="code-cap10-mf">FROM ./gemma3-code-assistant-q4_k_m.gguf
+PARAMETER temperature 0.3
+PARAMETER top_p 0.95
+PARAMETER num_ctx 4096
+SYSTEM """
+Eres un asistente de programación experto en Python. Respondes con ejemplos de código claros y concisos e incluyes tests unitarios cuando es relevante.
+"""</pre>
+          </div>
+        </article>
+
+        <article class="chapter-section" id="cap-11" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 11</span>
+              <h3 class="chapter-title">Proyecto 2 — Modelo experto en documentación técnica (Odoo)</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-11"  data-action-click="toggleChapter" data-action-arg="cap-11">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Para especializar Gemma3:4b en un ERP corporativo como <strong>Odoo</strong> combinamos documentación oficial, hilos de la Odoo Community Association (OCA) y exportaciones reales de logs desde módulos como <code class="inline-code">llm_training</code> u <code class="inline-code">odoo18-gpt-integration</code>. Equilibrar las preguntas entre módulos (Ventas, Compras, Inventario, Contabilidad y CRM) y fijar <code class="inline-code">temperature 0.2</code> evita respuestas creativas erróneas y permite un ciclo de mejora continua incorporando tickets resueltos al dataset.
+          </p>
+        </article>
+
+        <article class="chapter-section" id="cap-12" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 12</span>
+              <h3 class="chapter-title">Proyecto 3 — Tool calling y agente local con Qwen3 4B</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-12"  data-action-click="toggleChapter" data-action-arg="cap-12">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            Usando un checkpoint de Qwen3-4B-Instruct ya ajustado sobre 60.000 ejemplos de <em>function calling</em> (<code class="inline-code">hf.co/Manojb/Qwen3-4B-toolcalling-gguf-codex:Q4_K_M</code>, 94% de precisión en selección de función y 96% en extracción de argumentos), definimos las herramientas dentro de etiquetas XML <code class="inline-code">&lt;tools&gt;</code> en el <code class="inline-code">SYSTEM</code> del Modelfile junto a su plantilla <code class="inline-code">&lt;|im_start|&gt;</code>. En Python interceptamos <code class="inline-code">&lt;tool_call&gt;</code>, ejecutamos la función real y devolvemos el resultado al modelo, abriendo la puerta al protocolo estándar <strong>MCP (Model Context Protocol)</strong>.
+          </p>
+
+          <div class="layer" id="lab-agent">
+            <span class="mono-label">LABORATORIO INTERACTIVO 04 · SIMULADOR DE AGENTE QWEN3 TOOL-CALLING</span>
+            <p class="prose">Prueba una consulta con las herramientas <code class="inline-code">get_weather(city)</code> y <code class="inline-code">calculate(expression)</code> para observar el ciclo completo de decisión, llamada JSON y respuesta final.</p>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="agent-input">Consulta al agente local (qwen3-tool)</label>
+                <input type="text" id="agent-input" value="¿Qué tiempo hace en Barcelona?"  data-action-keydown="agent-enter">
+              </div>
+              <div class="action-row--wrap">
+                <button type="button" class="btn btn-primary"  data-action-click="runAgentSimulation">Ejecutar agente</button>
+                <button type="button" class="btn btn-ghost"  data-action-click="setAgentPrompt" data-action-arg="Calcula 25 * 4 + 18">Probar cálculo</button>
+                <button type="button" class="btn btn-ghost"  data-action-click="setAgentPrompt" data-action-arg="¿Qué es un Modelfile?">Probar sin tool</button>
+              </div>
+            </div>
+
+            <div class="code-panel">
+              <div class="code-header">
+                <span class="code-title">Traza de ejecución · run_agent()</span>
+              </div>
+              <pre class="code-body" id="agent-trace">Pulsa "Ejecutar agente" para inspeccionar el flujo paso a paso.</pre>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="course-part" id="parte-5">
+        <div class="part-banner">
+          <span class="mono-label">SECCIÓN 05 · CAPÍTULOS 13 A 16</span>
+          <h2 class="part-headline">Parte V: <strong>Cierre, examen y consulta</strong></h2>
+          <p class="part-summary">Integra el curso en una herramienta automatizada, completa el test tras los 13 capítulos obligatorios y consulta libremente los apéndices.</p>
+        </div>
+        <details class="intro-video" data-youtube-id="bflABA-Nt7U" data-video-title="Vídeo introductorio · Parte V: Cierre y autoevaluación">
+          <summary>Vídeo introductorio · Parte V: Cierre y autoevaluación <span class="video-status" role="status" aria-live="polite">Carga diferida</span></summary>
+          <div class="intro-video-frame" role="region" aria-label="Vídeo introductorio de la Parte V: Cierre y autoevaluación">
+            <p class="intro-video-placeholder">Vídeo introductorio pendiente de edición.</p>
+          </div>
+        </details>
+
+        <article class="chapter-section" id="cap-13" data-required="true">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">CAPÍTULO 13 · CIERRE</span>
+              <h3 class="chapter-title">El futuro de la IA local y el Pipeline Automatizado (SLM Automator)</h3>
+            </div>
+            <button type="button" class="btn-complete" data-chapter="cap-13"  data-action-click="toggleChapter" data-action-arg="cap-13">Marcar completado</button>
+          </div>
+
+          <p class="prose">
+            El recorrido termina donde empezó: con un equipo modesto (incluso un PC de trece años) ejecutando asistentes privados que te pertenecen al 100%, sin cuotas por consulta ni vigilancia de datos. Cuatro tendencias consolidan este camino: modelos de 1–3B con rendimiento de modelos masivos, el fine-tuning como habilidad cotidiana similar a Git o Docker, agentes locales conectados mediante MCP y la exigencia de soberanía y cumplimiento GDPR.
+          </p>
+          <p class="prose">
+            Para ejecutar todo este ciclo sin escribir scripts intermedios en cada proyecto, el <a href="https://github.com/Charran78/Automated-SLM-Fine-Tuning-Tool/tree/feature/remote-training" target="_blank" rel="noopener noreferrer"><strong>repositorio Automated-SLM-Fine-Tuning-Tool · rama remote-training (se abre en una pestaña nueva)</strong></a> (licencia Apache 2.0) unifica la clase <code class="inline-code">SLMFineTunerPipeline</code> en <code class="inline-code">slm_automator.py</code> y una interfaz web en NiceGUI (<code class="inline-code">app_ui3.py</code> en <code class="inline-code">localhost:8080</code>).
+          </p>
+
+          <figure class="flow-diagram">
+            <svg viewBox="0 0 520 1250" role="img" aria-labelledby="pipeline-title pipeline-description">
+              <title id="pipeline-title">Pipeline de fine-tuning hasta API REST local</title>
+              <desc id="pipeline-description">Ocho etapas conectadas en orden: JSONL, Unsloth y QLoRA, adaptador LoRA, fusión en 16 bits, GGUF Q4_K_M, Modelfile, Ollama y API REST.</desc>
+              <defs>
+                <marker id="flow-arrowhead" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+                  <path d="M0,0 L10,4 L0,8 Z" fill="var(--primary)"></path>
+                </marker>
+              </defs>
+              <path class="flow-arrow" d="M260 122 V164 M260 272 V314 M260 422 V464 M260 572 V614 M260 722 V764 M260 872 V914 M260 1022 V1064"></path>
+              <rect class="flow-node" x="55" y="20" width="410" height="102" rx="8"></rect>
+              <text class="flow-node-label" x="260" y="82">JSONL</text>
+              <rect class="flow-node" x="55" y="170" width="410" height="102" rx="8"></rect>
+              <text class="flow-node-label" x="260" y="232">Unsloth / QLoRA</text>
+              <rect class="flow-node" x="55" y="320" width="410" height="102" rx="8"></rect>
+              <text class="flow-node-label" x="260" y="382">LoRA adapter</text>
+              <rect class="flow-node" x="55" y="470" width="410" height="102" rx="8"></rect>
+              <text class="flow-node-label" x="260" y="532">Merge 16-bit</text>
+              <rect class="flow-node" x="55" y="620" width="410" height="102" rx="8"></rect>
+              <text class="flow-node-label" x="260" y="682">GGUF Q4_K_M</text>
+              <rect class="flow-node" x="55" y="770" width="410" height="102" rx="8"></rect>
+              <text class="flow-node-label" x="260" y="832">Modelfile</text>
+              <rect class="flow-node" x="55" y="920" width="410" height="102" rx="8"></rect>
+              <text class="flow-node-label" x="260" y="982">Ollama</text>
+              <rect class="flow-node" x="55" y="1070" width="410" height="102" rx="8"></rect>
+              <text class="flow-node-label" x="260" y="1132">API REST</text>
+            </svg>
+            <figcaption class="chart-note">Flujo de referencia: los adaptadores se entrenan sobre el modelo base; luego se fusionan y cuantizan antes de registrarlos en Ollama.</figcaption>
+          </figure>
+
+          <div class="chart-box spaced-lg">
+            <h4 class="section-heading">Evolución de eval_loss · Pre-FT / Post-FT</h4>
+            <p class="chart-note">Datos ficticios de demostración, no resultados de un entrenamiento real. El baseline Pre-FT se mantiene como referencia visual; los valores Post-FT ilustran una posible curva y no garantizan una mejora.</p>
+            <div class="chart-canvas-wrap">
+              <canvas id="eval-loss-chart" role="img" aria-label="Gráfico de línea demo ficticio de eval_loss: referencia Pre-FT y valores Post-FT por época"></canvas>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="num">Paso</th>
+                  <th>Método en SLMFineTunerPipeline</th>
+                  <th>Acción automatizada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="num">01</td>
+                  <td><code class="inline-code">load_model_and_tokenizer()</code></td>
+                  <td>Detecta GPU (Unsloth 4-bit NF4) o activa fallback CPU (<code class="inline-code">transformers + peft</code> para Qwen, Llama, Gemma y Phi).</td>
+                </tr>
+                <tr>
+                  <td class="num">02</td>
+                  <td><code class="inline-code">prepare_dataset()</code></td>
+                  <td>Carga el JSONL, aplica plantilla de chat, valida <code class="inline-code">eos_token</code> y divide en train/eval (si hay ≥10 ejemplos).</td>
+                </tr>
+                <tr>
+                  <td class="num">03</td>
+                  <td><code class="inline-code">evaluate_model()</code></td>
+                  <td>Evalúa el baseline Pre-FT midiendo <code class="inline-code">eval_loss</code> y respuestas cualitativas a prompts de prueba.</td>
+                </tr>
+                <tr>
+                  <td class="num">04</td>
+                  <td><code class="inline-code">train()</code></td>
+                  <td>Ejecuta SFT con <code class="inline-code">trl.SFTTrainer</code> ajustando automáticamente <code class="inline-code">bf16</code> / <code class="inline-code">fp16</code>.</td>
+                </tr>
+                <tr>
+                  <td class="num">05</td>
+                  <td><code class="inline-code">evaluate_model()</code></td>
+                  <td>Repite la evaluación Post-FT para cuantificar la mejora frente al modelo base.</td>
+                </tr>
+                <tr>
+                  <td class="num">06</td>
+                  <td><code class="inline-code">export_to_gguf()</code></td>
+                  <td>Fusiona LoRA, cuantiza a <code class="inline-code">q4_k_m</code> / <code class="inline-code">q8_0</code> (compilando <code class="inline-code">llama-quantize</code> en CPU si hace falta) y parchea el Modelfile (issue #2604).</td>
+                </tr>
+                <tr>
+                  <td class="num">07</td>
+                  <td><code class="inline-code">register_in_ollama()</code></td>
+                  <td>Ejecuta <code class="inline-code">ollama create</code> en un directorio único por trabajo y limpia archivos temporales pesados.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="code-panel">
+            <div class="code-header">
+              <span class="code-title">Automated-SLM-Fine-Tuning-Tool · Uso por UI, CLI y pruebas de estabilidad</span>
+              <div class="code-actions">
+                <button type="button" class="code-btn"  data-action-click="copyElementText" data-action-arg="code-cap13-auto" data-action-source="element">Copiar código</button>
+              </div>
+            </div>
+            <pre class="code-body" id="code-cap13-auto"># Lanzar interfaz gráfica NiceGUI (puerto 8080)
+python app_ui3.py
+
+# Verificar las 8 pruebas de estabilidad, sintaxis y lint
+python -m unittest -v test_stability
+python -m py_compile app_ui3.py slm_automator.py test_stability.py
+ruff check app_ui3.py slm_automator.py test_stability.py
+
+# Flujo programático completo en Python
+from slm_automator import SLMFineTunerPipeline
+pipeline = SLMFineTunerPipeline(model_name="unsloth/Qwen2.5-1.5B-Instruct")
+pipeline.load_model_and_tokenizer()
+pipeline.prepare_dataset("mi_dataset.jsonl", test_size=0.1)
+pipeline.evaluate_model(test_prompts=["¿Qué es LoRA?"], stage_label="Baseline (Pre-FT)")
+pipeline.train(epochs=3, batch_size=2, learning_rate=2e-4)
+pipeline.evaluate_model(test_prompts=["¿Qué es LoRA?"], stage_label="Post-FT")
+modelfile = pipeline.export_to_gguf(export_dir="./gguf_output", quant_type="q4_k_m")
+pipeline.register_in_ollama(modelfile, ollama_model_name="qwen2.5-ft")</pre>
+          </div>
+
+        </article>
+
+        <article class="chapter-section" id="cap-14" data-quiz-gated="true" aria-labelledby="quiz-chapter-heading">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">PUNTO 14 · EXAMEN FINAL</span>
+              <h3 class="chapter-title" id="quiz-chapter-heading">Test final · 12 preguntas</h3>
+            </div>
+          </div>
+          <div class="layer" id="bloque-autoevaluacion">
+            <p class="certificate-help" id="quiz-lock-help" role="status" aria-live="polite">Bloqueado: completa y marca como completados los 13 capítulos obligatorios para desbloquear el test. Los puntos 15 y 16 son de consulta libre.</p>
+            <div class="action-row--between">
+              <div>
+                <span class="mono-label">LABORATORIO INTERACTIVO 05 · AUTOEVALUACIÓN DEL CURSO (12 PREGUNTAS)</span>
+                <p class="prose">Pon a prueba tu dominio sobre las cinco partes del curso. Obtendrás retroalimentación razonada inmediata y tu puntuación quedará guardada.</p>
+              </div>
+              <div class="action-row--center">
+                <div class="kpi-tile kpi-tile--compact">
+                  <span class="mono-label">Puntuación</span>
+                  <span id="quiz-score-display" class="kpi-value kpi-value--large">0 / 12</span>
+                </div>
+                <button type="button" class="btn btn-secondary" id="quiz-reset-btn" aria-describedby="quiz-reset-help quiz-reset-status" aria-pressed="false"  data-action-click="resetQuiz" data-action-source="element">Reiniciar test</button>
+              </div>
+              <span class="visually-hidden" id="quiz-reset-help">Pulsa una vez y vuelve a pulsar en 3,5 segundos para confirmar.</span>
+              <span class="visually-hidden" id="quiz-reset-status" role="status" aria-live="polite"></span>
+            </div>
+
+            <div id="quiz-container" class="quiz-question-list"></div>
+
+            <section class="certificate-panel" aria-labelledby="certificate-heading">
+              <span class="mono-label">CIERRE DEL CURSO</span>
+              <h3 id="certificate-heading">Reconocimiento de finalización</h3>
+              <p class="certificate-disclaimer">Reconocimiento de finalización · No acreditado · Sin validez oficial/profesional</p>
+              <p class="prose">Al completar los 13 capítulos y responder correctamente las 12 preguntas, podrás crear una imagen PNG personalizada. El nombre no se guarda ni se envía automáticamente; si compartes el PNG, aparecerá en la imagen que elijas enviar.</p>
+              <div class="certificate-name-field">
+                <label for="certificate-name">Nombre para el reconocimiento</label>
+                <input id="certificate-name" type="text" maxlength="60" autocomplete="off" spellcheck="false" aria-label="Nombre que aparecerá en el reconocimiento" aria-describedby="certificate-name-help">
+                <p class="certificate-help" id="certificate-name-help">Máximo 60 caracteres. Este nombre permanece solo en memoria mientras la página está abierta.</p>
+              </div>
+              <figure class="certificate-preview">
+                <canvas id="certificate-canvas" width="1376" height="768" role="img" aria-label="Vista previa bloqueada; completa los 13 capítulos y responde correctamente las 12 preguntas."></canvas>
+                <figcaption>Vista previa PNG · Se actualizará mientras escribes. El reconocimiento no equivale a una acreditación oficial o profesional.</figcaption>
+              </figure>
+              <div class="certificate-actions" aria-label="Acciones del reconocimiento">
+                <button type="button" class="btn btn-secondary certificate-download" id="certificate-download" aria-label="Descargar reconocimiento personalizado como imagen PNG" disabled>Descargar PNG</button>
+                <button type="button" class="btn btn-secondary certificate-download" id="certificate-share" aria-label="Compartir el reconocimiento como imagen PNG" disabled>Compartir certificado</button>
+                <button type="button" class="btn btn-secondary certificate-download" id="certificate-linkedin" aria-label="Abrir el compositor de LinkedIn para compartir el curso" disabled>Compartir en LinkedIn</button>
+                <button type="button" class="btn btn-secondary certificate-download" id="certificate-x" aria-label="Abrir el compositor de X para compartir el curso" disabled>Compartir en X</button>
+                <button type="button" class="btn btn-secondary certificate-download" id="certificate-copy-link" aria-label="Copiar el enlace público del curso" disabled>Copiar enlace del curso</button>
+              </div>
+              <p class="certificate-help">LinkedIn y X no reciben la imagen automáticamente: adjunta el PNG manualmente en su compositor. Los enlaces sociales solo se habilitan cuando el curso está publicado en una URL web pública.</p>
+              <p class="certificate-status" id="certificate-status" role="status" aria-live="polite">Bloqueado: completa los 13 capítulos y responde correctamente las 12 preguntas.</p>
+            </section>
+          </div>
+
+        </article>
+
+        <article class="chapter-section" id="cap-15" aria-labelledby="appendix-a-heading">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">PUNTO 15 · CONSULTA LIBRE</span>
+              <h3 class="chapter-title" id="appendix-a-heading">Apéndice A · Referencia rápida de comandos de Ollama</h3>
+            </div>
+          </div>
+          <p class="prose">Consulta los comandos cuando los necesites. Este apéndice no forma parte del progreso obligatorio ni condiciona el test o el reconocimiento.</p>
+          <details class="appendix-box">
+            <summary>Apéndice A · Referencia rápida de comandos de Ollama</summary>
+            <div class="table-wrap spaced-md">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Comando</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="inline-code">ollama pull &lt;modelo&gt;</code></td><td>Descarga un modelo del repositorio oficial</td><td><code class="inline-code">ollama pull gemma3:4b</code></td></tr>
+                  <tr><td><code class="inline-code">ollama run &lt;modelo&gt;</code></td><td>Ejecuta un modelo en modo interactivo</td><td><code class="inline-code">ollama run gemma3:4b</code></td></tr>
+                  <tr><td><code class="inline-code">ollama create &lt;nom&gt; -f &lt;f&gt;</code></td><td>Crea un modelo personalizado desde un Modelfile</td><td><code class="inline-code">ollama create asesor -f asesor.modelfile</code></td></tr>
+                  <tr><td><code class="inline-code">ollama list</code></td><td>Lista los modelos descargados y creados</td><td><code class="inline-code">ollama list</code></td></tr>
+                  <tr><td><code class="inline-code">ollama rm &lt;modelo&gt;</code></td><td>Elimina un modelo local</td><td><code class="inline-code">ollama rm asesor</code></td></tr>
+                  <tr><td><code class="inline-code">ollama cp &lt;orig&gt; &lt;dest&gt;</code></td><td>Copia un modelo con otro nombre</td><td><code class="inline-code">ollama cp gemma3:4b gemma3-copia</code></td></tr>
+                  <tr><td><code class="inline-code">ollama show &lt;m&gt; --modelfile</code></td><td>Muestra el Modelfile interno de un modelo</td><td><code class="inline-code">ollama show gemma3:4b --modelfile</code></td></tr>
+                  <tr><td><code class="inline-code">ollama ps</code></td><td>Muestra los modelos cargados en memoria RAM/VRAM</td><td><code class="inline-code">ollama ps</code></td></tr>
+                  <tr><td><code class="inline-code">ollama stop &lt;modelo&gt;</code></td><td>Detiene un modelo en ejecución</td><td><code class="inline-code">ollama stop gemma3:4b</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </article>
+
+        <article class="chapter-section" id="cap-16" aria-labelledby="appendix-b-heading">
+          <div class="chapter-header">
+            <div class="chapter-title-wrap">
+              <span class="mono-label">PUNTO 16 · CONSULTA LIBRE</span>
+              <h3 class="chapter-title" id="appendix-b-heading">Apéndice B · Glosario esencial de IA Local y Fine-Tuning</h3>
+            </div>
+          </div>
+          <p class="prose">Consulta las definiciones como referencia rápida. Este apéndice no forma parte del progreso obligatorio ni condiciona el test o el reconocimiento.</p>
+          <details class="appendix-box">
+            <summary>Apéndice B · Glosario esencial de IA Local y Fine-Tuning</summary>
+            <div class="table-wrap spaced-md">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Término</th>
+                    <th>Definición práctica</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>LoRA / QLoRA</strong></td><td>Low-Rank Adaptation: entrena matrices ligeras manteniendo congelados los pesos base; QLoRA añade cuantización en 4 bits para caber en GPUs modestas.</td></tr>
+                  <tr><td><strong>GGUF</strong></td><td>Formato binario cuantizado creado por <code class="inline-code">llama.cpp</code> y utilizado de forma nativa por Ollama.</td></tr>
+                  <tr><td><strong>Cuantización</strong></td><td>Compresión numérica de pesos (ej. FP16 a 4 bits como Q4_K_M) que reduce memoria y acelera inferencia con mínima pérdida de calidad.</td></tr>
+                  <tr><td><strong>Modelfile</strong></td><td>Plano declarativo de Ollama (<code class="inline-code">FROM</code>, <code class="inline-code">PARAMETER</code>, <code class="inline-code">SYSTEM</code>, <code class="inline-code">MESSAGE</code>, <code class="inline-code">TEMPLATE</code>) para empaquetar modelos.</td></tr>
+                  <tr><td><strong>Tool Calling / MCP</strong></td><td>Capacidad del modelo para emitir llamadas estructuradas a funciones externas y conectarse de forma modular mediante Model Context Protocol.</td></tr>
+                  <tr><td><strong>RAG vs. Fine-Tuning</strong></td><td>RAG recupera documentos externos antes de responder; el fine-tuning internaliza formato, estilo y conocimiento directamente en los pesos.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </article>
+      </section>
+
+        <nav class="chapter-pager" aria-label="Navegación entre capítulos">
+          <button type="button" data-reader-step="-1" aria-label="Ir al capítulo anterior">Capítulo anterior</button>
+          <span class="chapter-pager-status" id="reader-chapter-status" aria-live="polite">Capítulo 1 de 16</span>
+          <button type="button" data-reader-step="1" aria-label="Ir al capítulo siguiente">Capítulo siguiente</button>
+        </nav>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="course-footer">
+    <strong>Fuentes del curso:</strong> Libro descargable <a href="https://buymeacoffee.com/beyonddigiv/e/513275" target="_blank" rel="noopener noreferrer"><em>Tuning con Ollama — Local AI Engineering: Del Modelo Base al Asistente Especializado</em> (Pedro Mencías, 2026)</a>, repositorio del curso <a href="https://github.com/Charran78/Curso-Fine-Tuning-SLMs-Local-y-Remoto" target="_blank" rel="noopener noreferrer"><em>Curso Fine-Tuning SLMs Local y Remoto</em></a> y proyecto open source <a href="https://github.com/Charran78/Automated-SLM-Fine-Tuning-Tool/tree/feature/remote-training" target="_blank" rel="noopener noreferrer"><em>Automated-SLM-Fine-Tuning-Tool · rama remote-training</em></a> (Charran78 / Pedro Mencías, licencia Apache 2.0). Dataset de ejemplo de 200 entradas QA (100 pares únicos × 2 variantes didácticas) en formato JSONL compatible con SFTTrainer.
+  </footer>
+
+  <section class="state-transfer" aria-labelledby="state-transfer-title">
+    <h2 id="state-transfer-title">Transferir progreso local</h2>
+    <p>Importa un JSON v1 exportado desde CURSO.html. La vista previa cuenta los datos antes de aplicarlos; importar reemplaza el progreso local actual. El archivo incluye el system prompt de tu Modelfile y permanece en este dispositivo.</p>
+    <label class="transfer-file-label" for="state-import-file">Seleccionar archivo JSON v1</label>
+    <input id="state-import-file" type="file" accept="application/json,.json" aria-describedby="state-transfer-status">
+    <p id="state-transfer-status" role="status" aria-live="polite">No se ha seleccionado ningún archivo.</p>
+    <div class="transfer-actions">
+      <button type="button" class="btn btn-primary" id="state-import-apply" disabled>Aplicar e importar</button>
+      <button type="button" class="btn btn-secondary" id="state-import-cancel" disabled>Cancelar</button>
+    </div>
+  </section>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
