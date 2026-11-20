@@ -55,6 +55,8 @@ Los vídeos de YouTube se cargan de forma diferida al abrir cada sección de ví
 
 ## Licencias y atribución
 
+Este repositorio contiene obras bajo licencias distintas; consulta el [resumen de licencias y alcance](LICENSE), que identifica qué cubre cada una.
+
 Los archivos fuente `*.js`, `*.mjs` y `*.css` se ofrecen bajo Apache License 2.0; lo mismo aplica a los archivos `*.py` si se incorporan al proyecto. Consulta el texto completo de la [Apache License 2.0](LICENSE-APACHE-2.0).
 
 La página publicada `index.html` contiene material didáctico y marcado HTML cubiertos por [Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/); cualquier código JavaScript o CSS incluido en ella conserva la licencia Apache indicada arriba. En `js/data.js`, la lógica de la aplicación está bajo Apache 2.0, mientras que el dataset y los textos de sus preguntas se ofrecen bajo CC BY-NC-SA 4.0. La copia de respaldo local `CURSO.html` tiene el mismo alcance de contenido CC si se distribuye; no forma parte de este repositorio. Consulta los [términos y alcance de la licencia de contenido](LICENSE-CONTENT.md).

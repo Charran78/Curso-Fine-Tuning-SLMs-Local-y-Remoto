@@ -1,0 +1,24 @@
+Dual licensing notice
+
+This repository contains different works under separate licenses. No single
+license applies to every file or asset.
+
+Software source code:
+  Files with .js, .mjs, .css, and .py extensions (if present) are licensed
+  under the Apache License, Version 2.0. See LICENSE-APACHE-2.0.
+  In js/data.js, the application logic is Apache-2.0; the course dataset and
+  question text are CC BY-NC-SA 4.0 as described below.
+
+Educational content:
+  The educational text and HTML markup in index.html, the course dataset,
+  and its question text are licensed under Creative Commons
+  Attribution-NonCommercial-ShareAlike 4.0 International. See
+  LICENSE-CONTENT.md for attribution and scope.
+  The local backup CURSO.html follows the same content license if distributed;
+  it is not included in this repository.
+
+Excluded materials:
+  Third-party works retain their own terms. The ownership and license of
+  assets/FONDO_CERTIFICADO.png are unspecified and it is excluded from the
+  licenses above until confirmed. Trademarks, model names, and linked projects
+  are not licensed by their mention here.
