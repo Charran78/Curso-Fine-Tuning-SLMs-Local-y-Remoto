@@ -62,6 +62,14 @@
       --space-3xl: 6rem;
       --license-icon-size: 1.5rem;
       --license-icon-filter: none;
+      --bmc-yellow: #ffdd00;
+      --bmc-ink: #000000;
+      --progress-bubble-size: 62px;
+      --progress-bubble-mobile-size: 56px;
+      --coffee-float-size: 56px;
+      --coffee-icon-size: 24px;
+      --coffee-button-radius: 999px;
+      --space-mobile-inset: 0.75rem;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
       --dur-micro: 120ms;
@@ -180,8 +188,8 @@
       right: calc(1rem + env(safe-area-inset-right, 0px));
       bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
       display: grid;
-      width: 62px;
-      height: 62px;
+      width: var(--progress-bubble-size);
+      height: var(--progress-bubble-size);
       place-items: center;
       border-radius: 50%;
       background: conic-gradient(var(--primary) var(--progress), var(--surface-container-high) 0);
@@ -202,6 +210,47 @@
       font: 600 0.8rem var(--font-label);
     }
     .progress-bubble:hover { transform: translateY(-2px); }
+    .coffee-float {
+      position: fixed;
+      z-index: 9999;
+      right: calc(var(--space-md) + var(--progress-bubble-size) + var(--space-sm) + env(safe-area-inset-right, 0px));
+      bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+      display: inline-flex;
+      min-height: var(--coffee-float-size);
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      padding: 0 var(--space-md);
+      border: 0;
+      border-radius: var(--coffee-button-radius);
+      background: var(--bmc-yellow);
+      color: var(--bmc-ink);
+      box-shadow: var(--shadow-2);
+      font: 600 var(--body-size) var(--font-body);
+      text-decoration: none;
+      animation: coffee-bounce 3s var(--ease-in-out) infinite;
+      transition: transform var(--dur-short) var(--ease-out);
+    }
+    .coffee-float svg {
+      width: var(--coffee-icon-size);
+      height: var(--coffee-icon-size);
+      flex: 0 0 auto;
+      animation: coffee-pulse 1.8s var(--ease-in-out) infinite;
+    }
+    .coffee-float-label { display: inline; }
+    .coffee-float:is(:hover, :focus-visible) {
+      animation: none;
+      transform: translateY(calc(-1 * var(--space-xs)));
+    }
+    .coffee-float:is(:hover, :focus-visible) svg { animation: none; }
+    @keyframes coffee-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(calc(-1 * var(--space-xs))); }
+    }
+    @keyframes coffee-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
     .course-reader.is-showing-cover .chapter-pager { display: none; }
     .theme-toggle {
       min-height: 40px;
@@ -932,11 +981,20 @@
       .layer { padding: var(--space-md); }
       .course-cover { padding: var(--space-md); }
       .progress-bubble {
-        right: calc(0.75rem + env(safe-area-inset-right, 0px));
-        bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
-        width: 56px;
-        height: 56px;
+        right: calc(var(--space-mobile-inset) + env(safe-area-inset-right, 0px));
+        bottom: calc(var(--space-mobile-inset) + env(safe-area-inset-bottom, 0px));
+        width: var(--progress-bubble-mobile-size);
+        height: var(--progress-bubble-mobile-size);
       }
+      .coffee-float {
+        right: calc(var(--space-mobile-inset) + var(--progress-bubble-mobile-size) + var(--space-sm) + env(safe-area-inset-right, 0px));
+        bottom: calc(var(--space-mobile-inset) + env(safe-area-inset-bottom, 0px));
+        width: var(--coffee-float-size);
+        height: var(--coffee-float-size);
+        min-height: var(--coffee-float-size);
+        padding: 0;
+      }
+      .coffee-float-label { display: none; }
       .chart-canvas-wrap { min-height: 280px; }
       .chapter-pager { flex-wrap: wrap; }
       .chapter-pager-status { order: -1; flex-basis: 100%; }
@@ -952,6 +1010,7 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
+      .coffee-float, .coffee-float svg { animation: none; }
       .video-status { animation: none !important; }
     }
 
